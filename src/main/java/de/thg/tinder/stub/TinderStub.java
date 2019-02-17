@@ -52,4 +52,14 @@ public interface TinderStub {
 	 */
 	public String setLocation(String sessionId, String latudiude, String longitude);
 	
+	/**
+	 * Updates the search filter
+	 * @param sessionId
+	 * @param minimumAge
+	 * @param maximumAge
+	 * @param maximumDistance
+	 * @return
+	 */
+	public String updateSearchFilter(String sessionId, int minimumAge, int maximumAge, int maximumDistance);
+	
 }

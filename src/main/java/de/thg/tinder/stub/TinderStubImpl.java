@@ -1,6 +1,7 @@
 package de.thg.tinder.stub;
 
-import de.thg.tinder.api.pojos.SmsValidatorResponse;
+import de.thg.tinder.api.pojos.Profile;
+import de.thg.tinder.api.pojos.User;
 import de.thg.tinder.common.Constants;
 import de.thg.tinder.http.pojo.HttpHeader;
 import de.thg.tinder.http.pojo.HttpMessage;
@@ -19,7 +20,8 @@ public class TinderStubImpl implements TinderStub {
 	public static void main(String[] args) {
 		TinderStubImpl wrapper = new TinderStubImpl();
 		try {
-			String t = wrapper.setLocation("76a488e1-8968-475e-b673-344395df1ef8", "14.599512", "120.984222");
+			wrapper.setLocation("76a488e1-8968-475e-b673-344395df1ef8", "14.599512", "120.984222");
+			String t = wrapper.updateSearchFilter("76a488e1-8968-475e-b673-344395df1ef8", 18, 34, 60);
 			System.out.println(t);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -68,10 +70,10 @@ public class TinderStubImpl implements TinderStub {
 
 	@Override
 	public String sendSMSCode(String phoneNumber) {
-		String jsonContent = PojoToJsonMapper.convertPhoneNumberPojoToJson(phoneNumber);
 		String url = buildURL(Constants.RESOURCE_SEND_SMS);
 		HttpHeader header = createInitHeader(Constants.INSTALL_ID);
-		HttpMessage httpMessage = new HttpMessage(header, jsonContent);
+		String content = PojoToJsonMapper.convertPhoneNumberPojoToJson(phoneNumber);
+		HttpMessage httpMessage = new HttpMessage(header, content);
 		return HttpRequestFactory.doPOST(url, httpMessage);			
 	}
 	
@@ -84,12 +86,11 @@ public class TinderStubImpl implements TinderStub {
 	
 	private String createRefreshTokenFromSMSCode(String phoneNumber, String smsCode) {
 		String urlRefreshToken = buildURL(Constants.RESOURCE_GET_REFRESH_TOKEN);
-		String jsonRefreshTokenRequestContent = PojoToJsonMapper.convertSMSValidatorRequestPojoToJson(phoneNumber, smsCode);
-		HttpHeader header = createInitHeader(Constants.INSTALL_ID);
-		HttpMessage httpMessage = new HttpMessage(header, jsonRefreshTokenRequestContent);
-		String jsonResponse = HttpRequestFactory.doPOST(urlRefreshToken, httpMessage);			
-		SmsValidatorResponse response = JsonToPojoMapper.convertSMSValidatorResponseJsonToPojo(jsonResponse);
-		return response.getData().getRefreshToken();
+		HttpHeader httpHeader = createInitHeader(Constants.INSTALL_ID);
+		String httpContent = PojoToJsonMapper.convertSMSValidatorRequestPojoToJson(phoneNumber, smsCode);
+		HttpMessage httpMessage = new HttpMessage(httpHeader, httpContent);
+		String response = HttpRequestFactory.doPOST(urlRefreshToken, httpMessage);			
+		return JsonToPojoMapper.convertSMSValidatorResponseJsonToPojo(response).getData().getRefreshToken();
 	}
 	
 	private String createSessionIdFromRefreshToken(String phoneNumber, String refreshToken) {
@@ -106,6 +107,20 @@ public class TinderStubImpl implements TinderStub {
 		HttpHeader header = createDefaultHeader(sessionId);
 		String result = HttpRequestFactory.doGET(url, header);	
 		return result;
+	}
+
+	@Override
+	public String updateSearchFilter(String sessionId, int minimumAge, int maximumAge, int maximumDistance) {
+		String url = buildURL(Constants.RESOURCE_PROFILE);
+		Profile profile = new Profile();
+		profile.setUser(new User());
+		profile.getUser().setAgeFilterMax(maximumAge);
+		profile.getUser().setAgeFilterMin(minimumAge);
+		profile.getUser().setDistanceFilter(maximumDistance);
+		HttpHeader httpHeader = createDefaultHeader(sessionId);
+		String httpContent = PojoToJsonMapper.convertProfilePojoToJson(minimumAge, maximumAge, maximumDistance);
+		HttpMessage httpMessage = new HttpMessage(httpHeader, httpContent);
+		return HttpRequestFactory.doPOST(url, httpMessage);
 	}
 	
 }

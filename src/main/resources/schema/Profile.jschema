@@ -1,0 +1,31 @@
+{
+  "$id": "https://example.com/user.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "User attributes",
+  "description": "A user",
+  "additionalProperties" : false,
+  "type": "object",
+  "properties": {
+    "user": {
+      "additionalProperties" : false,
+      "type": "object",
+      "properties": {
+      	"age_filter_min": {
+      		"type": "integer",
+      		"minimum": 18,
+      		"maximum": 60
+      	},
+      	"age_filter_max": {
+      		"type": "integer",
+      		"minimum": 18,
+      		"maximum": 60
+      	},
+      	"distance_filter": {
+      		"type": "integer",
+      		"minimum": 18,
+      		"maximum": 60
+      	}    
+      }
+    }
+  }
+}

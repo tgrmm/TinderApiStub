@@ -16,4 +16,6 @@ public class Constants {
 	
 	public static String RESOURCE_GET_PROSPECTIVE = "v2/recs/core?locale=de";
 	
+	public static String RESOURCE_PROFILE = "v2/profile?locale=de";
+	
 }

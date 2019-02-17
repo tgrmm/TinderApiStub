@@ -10,7 +10,9 @@ import com.google.gson.reflect.TypeToken;
 import de.thg.tinder.api.pojos.Location;
 import de.thg.tinder.api.pojos.LoginRequest;
 import de.thg.tinder.api.pojos.PhoneNumber;
+import de.thg.tinder.api.pojos.Profile;
 import de.thg.tinder.api.pojos.SmsValidatorRequest;
+import de.thg.tinder.api.pojos.User;
 
 /**
  * Mapper Class that converts pojos to JSON schema
@@ -27,8 +29,7 @@ public class PojoToJsonMapper {
 		location.setLon(Double.valueOf(longitude));
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
         Type type = new TypeToken<Location>() {}.getType();
-        String jsonContent = gson.toJson(location, type);		
-        return jsonContent;
+        return gson.toJson(location, type);		
 	}
 	
 	public static String convertPhoneNumberPojoToJson(String phoneNumber) {
@@ -36,8 +37,7 @@ public class PojoToJsonMapper {
 		number.setPhoneNumber(phoneNumber);
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
         Type type = new TypeToken<PhoneNumber>() {}.getType();
-        String jsonContent = gson.toJson(number, type);		
-        return jsonContent;
+        return gson.toJson(number, type);		
 	}
 	
 	public static String convertSMSValidatorRequestPojoToJson(String phoneNumber, String optCode) {
@@ -47,8 +47,7 @@ public class PojoToJsonMapper {
 		request.setOtpCode(optCode);
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
         Type type = new TypeToken<SmsValidatorRequest>() {}.getType();
-        String jsonContent = gson.toJson(request, type);		
-        return jsonContent;
+        return gson.toJson(request, type);		
 	}
 	
 	public static String convertLoginRequestPojoToJson(String phoneNumber, String refreshToken) {
@@ -57,7 +56,17 @@ public class PojoToJsonMapper {
 		request.setRefreshToken(refreshToken);
         Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
         Type type = new TypeToken<SmsValidatorRequest>() {}.getType();
-        String jsonContent = gson.toJson(request, type);		
-        return jsonContent;
+        return gson.toJson(request, type);		
+	}
+	
+	public static String convertProfilePojoToJson(int minimumAge, int maximumAge, int maximumDistance) {
+		Profile profile = new Profile();
+		profile.setUser(new User());
+		profile.getUser().setAgeFilterMax(maximumAge);
+		profile.getUser().setAgeFilterMin(minimumAge);
+		profile.getUser().setDistanceFilter(maximumDistance);
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES).create();
+        Type type = new TypeToken<Profile>() {}.getType();
+        return gson.toJson(profile, type);		
 	}
 }
