@@ -1,4 +1,4 @@
-package de.thg.tinder.api;
+package de.thg.tinder.stub;
 
 /**
  * Stub interface for Tinder API

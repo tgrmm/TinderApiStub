@@ -1,7 +1,7 @@
 package de.thg.tinder.http.pojo;
 
 /**
- * Class representing a basic HTTP request Message
+ * Pojo representing a basic HTTP request Message
  * 
  * @author Timo Grimm
  *

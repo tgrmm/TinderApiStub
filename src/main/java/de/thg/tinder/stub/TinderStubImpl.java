@@ -1,4 +1,4 @@
-package de.thg.tinder.api;
+package de.thg.tinder.stub;
 
 import de.thg.tinder.api.pojos.SmsValidatorResponse;
 import de.thg.tinder.common.Constants;
