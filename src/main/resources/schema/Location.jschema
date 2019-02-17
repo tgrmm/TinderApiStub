@@ -1,0 +1,23 @@
+{
+  "$id": "https://example.com/geographical-location.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Longitude and Latitude Values",
+  "description": "A geographical coordinate.",
+  "required": [ "lat", "lon", "force_fetch_resources" ],
+  "type": "object",
+  "properties": {
+    "lat": {
+      "type": "number",
+      "minimum": -90,
+      "maximum": 90
+    },
+    "lon": {
+      "type": "number",
+      "minimum": -180,
+      "maximum": 180
+    },
+    "force_fetch_resources": {
+      "type": "boolean"
+  	}
+  }
+}

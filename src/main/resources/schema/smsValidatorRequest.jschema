@@ -1,0 +1,19 @@
+{
+  "$id": "https://example.com/smsValidator.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SMS Validator",
+  "description": "SMS Validator",
+  "required": [ "otp_code", "phone_number", "is_update" ],
+  "type": "object",
+  "properties": {
+    "otp_code": {
+      "type": "string"
+    },
+    "phone_number": {
+      "type": "string"
+    },
+    "is_update": {
+      "type": "boolean"
+    }
+  }
+}

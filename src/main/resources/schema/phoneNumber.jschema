@@ -1,0 +1,15 @@
+{
+  "$id": "https://example.com/phoneNumber.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Phone Number",
+  "description": "A plain phone number",
+  "required": [ "phone_number" ],
+  "type": "object",
+  "properties": {
+    "phone_number": {
+	  "type": "string",
+	  "minLength": 5,
+	  "maxLength": 15
+    }
+  }
+}

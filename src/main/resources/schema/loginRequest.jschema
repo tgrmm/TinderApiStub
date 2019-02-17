@@ -1,0 +1,16 @@
+{
+  "$id": "https://example.com/smsValidator.schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SMS Validator",
+  "description": "SMS Validator",
+  "required": [ "phone_number", "refresh_token" ],
+  "type": "object",
+  "properties": {
+    "phone_number": {
+      "type": "string"
+    },
+    "refresh_token": {
+      "type": "string"
+    }
+  }
+}
