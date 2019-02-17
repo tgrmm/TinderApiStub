@@ -17,18 +17,6 @@ import de.thg.tinder.mapper.PojoToJsonMapper;
  */
 public class TinderStubImpl implements TinderStub {
 
-	public static void main(String[] args) {
-		TinderStubImpl wrapper = new TinderStubImpl();
-		try {
-			wrapper.setLocation("76a488e1-8968-475e-b673-344395df1ef8", "14.599512", "120.984222");
-			String t = wrapper.updateSearchFilter("76a488e1-8968-475e-b673-344395df1ef8", 18, 34, 60);
-			System.out.println(t);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public boolean like(String sessionId) {
 		// TODO Auto-generated method stub
 		return false;
@@ -102,7 +90,7 @@ public class TinderStubImpl implements TinderStub {
 	}
 
 	@Override
-	public String getProspectives(String sessionId) {
+	public String getProspectiveCandidates(String sessionId) {
 		String url = buildURL(Constants.RESOURCE_GET_PROSPECTIVE);
 		HttpHeader header = createDefaultHeader(sessionId);
 		String result = HttpRequestFactory.doGET(url, header);	

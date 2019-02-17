@@ -24,10 +24,10 @@ public interface TinderStub {
 	public String createSessionIdFromSMSCode(String phoneNumber, String smsCode);
 
 	/**
-	 * Returns a list of possible prospectives
+	 * Returns a list of recommended and prospective candidates
 	 * @return
 	 */
-	public String getProspectives(String sessionId);
+	public String getProspectiveCandidates(String sessionId);
 	
 	/**
 	 * 
