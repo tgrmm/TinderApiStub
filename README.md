@@ -1,5 +1,6 @@
 # TinderApiStub
-A reverse-engineered Java stub implementation of Tinder's REST API providing the most common functionality
+A Java library that can be used to connect to Tinder API.
+The library was implemented by reverse-enginnering Tinder API and provides the most common functionality.
 
 ## Installation
 
