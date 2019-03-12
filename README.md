@@ -4,4 +4,6 @@ The library was implemented by reverse-enginnering Tinder API and provides the m
 
 ## Installation
 
+This project is currently not finished and cannot be used yet.
+
 ## How to use

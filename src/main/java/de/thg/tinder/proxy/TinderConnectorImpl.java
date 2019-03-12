@@ -21,18 +21,6 @@ public class TinderConnectorImpl implements TinderConnector {
 
 	public static String INSTALL_ID = "90a48525-2775-477f-bfe7-6d52c160543c";
 
-	
-	public static void main(String[] args) {
-		TinderConnectorImpl wrapper = new TinderConnectorImpl();
-		try {
-			String t = wrapper.setLocation("aca32a06-73fd-4de2-961a-c9a1a94c49b6", "15.519412", "120.982222");
-			System.out.println(t);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
 	public boolean dislike(String sessionId) {
 		// TODO Auto-generated method stub
 		return false;
