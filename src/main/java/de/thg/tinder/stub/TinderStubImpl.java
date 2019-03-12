@@ -17,6 +17,17 @@ import de.thg.tinder.mapper.PojoToJsonMapper;
  */
 public class TinderStubImpl implements TinderStub {
 
+	public static void main(String[] args) {
+		TinderStubImpl wrapper = new TinderStubImpl();
+		try {
+			String t = wrapper.setLocation("aca32a06-73fd-4de2-961a-c9a1a94c49b6", "15.519412", "120.982222");
+			System.out.println(t);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
 	public boolean like(String sessionId) {
 		// TODO Auto-generated method stub
 		return false;
