@@ -1,8 +1,6 @@
 package de.thg.tinder.common;
 
-public class Constants {
-
-	public static String INSTALL_ID = "90a48525-2775-477f-bfe7-6d52c160543c";
+public class URLConstants {
 	
 	public static String URL_ENDPOINT = "https://api.gotinder.com";
 	

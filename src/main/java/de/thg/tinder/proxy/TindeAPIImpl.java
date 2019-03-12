@@ -1,8 +1,10 @@
-package de.thg.tinder.stub;
+package de.thg.tinder.proxy;
+
+import java.util.List;
 
 import de.thg.tinder.api.pojos.Profile;
 import de.thg.tinder.api.pojos.User;
-import de.thg.tinder.common.Constants;
+import de.thg.tinder.common.URLConstants;
 import de.thg.tinder.http.pojo.HttpHeader;
 import de.thg.tinder.http.pojo.HttpMessage;
 import de.thg.tinder.http.utils.HttpRequestFactory;
@@ -10,28 +12,26 @@ import de.thg.tinder.mapper.JsonToPojoMapper;
 import de.thg.tinder.mapper.PojoToJsonMapper;
 
 /**
- *  A stub implementation for the Tinder API
+ *  Connects to tinder API providing the most common functionality
  * 
  * @author Timo Grimm
  *
  */
-public class TinderStubImpl implements TinderStub {
+public class TindeAPIImpl implements TinderAPI {
 
+	public static String INSTALL_ID = "90a48525-2775-477f-bfe7-6d52c160543c";
+
+	
 	public static void main(String[] args) {
-		TinderStubImpl wrapper = new TinderStubImpl();
+		TindeAPIImpl wrapper = new TindeAPIImpl();
 		try {
-			wrapper.setLocation("76a488e1-8968-475e-b673-344395df1ef8", "14.599512", "120.984222");
-			String t = wrapper.updateSearchFilter("76a488e1-8968-475e-b673-344395df1ef8", 18, 34, 60);
+			String t = wrapper.setLocation("a94bc59a-3f0f-46c3-928c-33a055f3d5dc", "-34.671749200886317", "-58.419380532678211");
+//			String t = wrapper.updateSearchFilter("76a488e1-8968-475e-b673-344395df1ef8", 18, 34, 60);
 			System.out.println(t);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}
-
-	public boolean like(String sessionId) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	public boolean dislike(String sessionId) {
@@ -56,7 +56,7 @@ public class TinderStubImpl implements TinderStub {
 	}	
 
 	public String setLocation(String sessionId, String latitude, String longitude) {
-		String url = buildURL(Constants.RESOURCE_SET_LOCATION);
+		String url = buildURL(URLConstants.RESOURCE_SET_LOCATION);
 
 		HttpHeader header = createDefaultHeader(sessionId);
 		String jsonContent = PojoToJsonMapper.convertLocationPojoToJson(latitude, longitude);
@@ -65,13 +65,13 @@ public class TinderStubImpl implements TinderStub {
 	}
 	
 	private String buildURL(String resource) {
-		return Constants.URL_ENDPOINT + "/" + resource;
+		return URLConstants.URL_ENDPOINT + "/" + resource;
 	}
 
 	@Override
-	public String sendSMSCode(String phoneNumber) {
-		String url = buildURL(Constants.RESOURCE_SEND_SMS);
-		HttpHeader header = createInitHeader(Constants.INSTALL_ID);
+	public String sendSMSCodeToPhoneNumber(String phoneNumber) {
+		String url = buildURL(URLConstants.RESOURCE_SEND_SMS);
+		HttpHeader header = createInitHeader(INSTALL_ID);
 		String content = PojoToJsonMapper.convertPhoneNumberPojoToJson(phoneNumber);
 		HttpMessage httpMessage = new HttpMessage(header, content);
 		return HttpRequestFactory.doPOST(url, httpMessage);			
@@ -85,8 +85,8 @@ public class TinderStubImpl implements TinderStub {
 	}
 	
 	private String createRefreshTokenFromSMSCode(String phoneNumber, String smsCode) {
-		String urlRefreshToken = buildURL(Constants.RESOURCE_GET_REFRESH_TOKEN);
-		HttpHeader httpHeader = createInitHeader(Constants.INSTALL_ID);
+		String urlRefreshToken = buildURL(URLConstants.RESOURCE_GET_REFRESH_TOKEN);
+		HttpHeader httpHeader = createInitHeader(INSTALL_ID);
 		String httpContent = PojoToJsonMapper.convertSMSValidatorRequestPojoToJson(phoneNumber, smsCode);
 		HttpMessage httpMessage = new HttpMessage(httpHeader, httpContent);
 		String response = HttpRequestFactory.doPOST(urlRefreshToken, httpMessage);			
@@ -94,24 +94,24 @@ public class TinderStubImpl implements TinderStub {
 	}
 	
 	private String createSessionIdFromRefreshToken(String phoneNumber, String refreshToken) {
-		HttpHeader header = createInitHeader(Constants.INSTALL_ID);
-		String urlSessionId = buildURL(Constants.RESOURCE_GET_SESSION_ID);
+		HttpHeader header = createInitHeader(INSTALL_ID);
+		String urlSessionId = buildURL(URLConstants.RESOURCE_GET_SESSION_ID);
 		String content = PojoToJsonMapper.convertLoginRequestPojoToJson(phoneNumber, refreshToken);
 		String result = HttpRequestFactory.doPOST(urlSessionId, new HttpMessage(header, content));	
 		return result;
 	}
 
 	@Override
-	public String getProspectives(String sessionId) {
-		String url = buildURL(Constants.RESOURCE_GET_PROSPECTIVE);
+	public List<String> getCandidates(String sessionId) {
+		String url = buildURL(URLConstants.RESOURCE_GET_PROSPECTIVE);
 		HttpHeader header = createDefaultHeader(sessionId);
 		String result = HttpRequestFactory.doGET(url, header);	
-		return result;
+		return null;
 	}
 
 	@Override
-	public String updateSearchFilter(String sessionId, int minimumAge, int maximumAge, int maximumDistance) {
-		String url = buildURL(Constants.RESOURCE_PROFILE);
+	public String setSearchFilter(String sessionId, int minimumAge, int maximumAge, int maximumDistance) {
+		String url = buildURL(URLConstants.RESOURCE_PROFILE);
 		Profile profile = new Profile();
 		profile.setUser(new User());
 		profile.getUser().setAgeFilterMax(maximumAge);
@@ -121,6 +121,12 @@ public class TinderStubImpl implements TinderStub {
 		String httpContent = PojoToJsonMapper.convertProfilePojoToJson(minimumAge, maximumAge, maximumDistance);
 		HttpMessage httpMessage = new HttpMessage(httpHeader, httpContent);
 		return HttpRequestFactory.doPOST(url, httpMessage);
+	}
+
+	@Override
+	public boolean like(String sessionId, String userId) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }
