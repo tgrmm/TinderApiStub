@@ -25,8 +25,7 @@ public class TindeAPIImpl implements TinderAPI {
 	public static void main(String[] args) {
 		TindeAPIImpl wrapper = new TindeAPIImpl();
 		try {
-			String t = wrapper.setLocation("a94bc59a-3f0f-46c3-928c-33a055f3d5dc", "-34.671749200886317", "-58.419380532678211");
-//			String t = wrapper.updateSearchFilter("76a488e1-8968-475e-b673-344395df1ef8", 18, 34, 60);
+			String t = wrapper.setLocation("aca32a06-73fd-4de2-961a-c9a1a94c49b6", "15.519412", "120.982222");
 			System.out.println(t);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
