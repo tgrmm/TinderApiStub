@@ -17,13 +17,13 @@ import de.thg.tinder.mapper.PojoToJsonMapper;
  * @author Timo Grimm
  *
  */
-public class TindeAPIImpl implements TinderAPI {
+public class TinderConnectorImpl implements TinderConnector {
 
 	public static String INSTALL_ID = "90a48525-2775-477f-bfe7-6d52c160543c";
 
 	
 	public static void main(String[] args) {
-		TindeAPIImpl wrapper = new TindeAPIImpl();
+		TinderConnectorImpl wrapper = new TinderConnectorImpl();
 		try {
 			String t = wrapper.setLocation("aca32a06-73fd-4de2-961a-c9a1a94c49b6", "15.519412", "120.982222");
 			System.out.println(t);
@@ -64,12 +64,12 @@ public class TindeAPIImpl implements TinderAPI {
 	}
 	
 	private String buildURL(String resource) {
-		return URLConstants.URL_ENDPOINT + "/" + resource;
+		return URLConstants.BASE_URL + "/" + resource;
 	}
 
 	@Override
 	public String sendSMSCodeToPhoneNumber(String phoneNumber) {
-		String url = buildURL(URLConstants.RESOURCE_SEND_SMS);
+		String url = buildURL(URLConstants.RESOURCE_AUTH_SMS);
 		HttpHeader header = createInitHeader(INSTALL_ID);
 		String content = PojoToJsonMapper.convertPhoneNumberPojoToJson(phoneNumber);
 		HttpMessage httpMessage = new HttpMessage(header, content);

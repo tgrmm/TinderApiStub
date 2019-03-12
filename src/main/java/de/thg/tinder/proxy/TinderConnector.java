@@ -8,7 +8,7 @@ import java.util.List;
  * @author Timo Grimm
  *
  */
-public interface TinderAPI {
+public interface TinderConnector {
 	
 	/**
 	 * Sends an sms containing the sms code to create the session id
