@@ -17,7 +17,7 @@ import de.thg.tinder.mapper.PojoToJsonMapper;
  * @author Timo Grimm
  *
  */
-public class TinderConnectorImpl implements TinderConnector {
+public class TinderApiConnectorImpl implements TinderApiConnector {
 
 	public static String INSTALL_ID = "90a48525-2775-477f-bfe7-6d52c160543c";
 
